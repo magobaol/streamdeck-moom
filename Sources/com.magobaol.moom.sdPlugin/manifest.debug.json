@@ -1,0 +1,39 @@
+{
+  "Actions": [
+    {
+      "Icon": "images/ActionIcon",
+      "Name": "Moom profile activator debug",
+      "SupportedInMultiActions": true,
+      "Tooltip": "Activate a Moom Profile",
+      "UUID": "com.magobaol.moom.debug.activate-profile",
+      "States": [
+        {
+          "Image": "images/ButtonIcon",
+          "TitleAlignment": "bottom",
+          "FontSize": "11",
+          "Title": "",
+          "ShowTitle": true
+        }
+      ]
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "Francesco Face",
+  "CodePath": "Debug/Plugin",
+  "Description": "Activate a Moom Profile",
+  "Name": "Moom profile activator debug",
+  "Icon": "images/PluginIcon",
+  "URL": "https://github.com/magobaol/streamdeck-moom",
+  "PropertyInspectorPath": "pi.html",
+  "Version": "1.0",
+  "OS": [
+    {
+        "Platform": "mac",
+        "MinimumVersion" : "10.11"
+    }
+  ],
+  "Software":
+    {
+        "MinimumVersion" : "4.3"
+    }
+}

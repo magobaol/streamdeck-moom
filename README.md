@@ -1,94 +1,29 @@
-# Stream Deck Plugin Template: Swift
+# Moom profile activator plugin for Stream Deck
 
-Use this template for creating a new [Stream Deck](https://www.elgato.com/gaming/stream-deck) plugin written in Swift (macOS only).
-Implementation is based on the example plugin `AppleMail` provided by [Elgato](https://github.com/elgatosf/streamdeck-applemail) written in Objective-C.
+This Stream Deck plugin will let you activate a [Moom](https://manytricks.com/moom/) profile of your choice.
 
+It's made for *macOS* only.
 
-# Description
+# Prerequisities
 
-If you want to create your own Stream Deck plugin for Mac, you can use this template if you prefer to write it in [Swift](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html).
-
+You need [Moom](https://manytricks.com/moom/) installed on your Mac.
+Moom is an amazing windows manager that lets you move and zoom a window with ease. You can also create profile of several windows and activate them through a context menu or a shortcut. With this plugin you can activate them with your Stream Deck too.
 
 # Features
 
-- boilerplate to setup plugin and handle events
-- code written in Swift
-- make use of Objective-C libraries
-- macOS only
+The plugin will present you a list of all Moom profiles defined in your Moom installation and let you select one of your choice to activate when you press the Stream Deck button.
 
-![](screenshot.png)
+![](screenshot-1.png)
+![](screenshot-2.png)
 
+# How to install
 
-# Getting started
+1. Download the latest release from the [releases](https://github.com/magobaol/streamdeck-moom/releases) page.
+2. Double click the `com.magobaol.moom.streamDeckPlugin` to install.
 
-1. The Sources folder contains the source code of the plugin.
-2. Open the `StreamDeckPlugin.xcodeproj` in Xcode.
-3. Start writing code in `Plugin.swift` where you can handle events like `keyDown`, `keyUp`, `willAppear`, etc...
-4. Send commands to Stream Deck using the `connectionManager` instance available in `Plugin.swift`.
-5. Finnaly you plugin should be bundled in the folder `com.COMPANYNAME.PLUGINNAME.sdPlugin` (replace `COMPANYNAME` and `PLUGINNAME`), and add a `manifest.json` file and other resources such as images.
+# Credits
 
-# Events
+- Implementation is based on the template [streamdeck-template-swift](https://github.com/JarnoLeConte/streamdeck-template-swift) by [Jarno Le Conté](https://github.com/JarnoLeConte).
+- AppleScript interface based on [Finder Tags plugin for Stream Deck](https://github.com/JarnoLeConte/streamdeck-findertags) by [Jarno Le Conté](https://github.com/JarnoLeConte)
+- Icons by [Font Awesome](https://fontawesome.com/license)
 
-This are all events that you can handle in `Plugin.swift`:
-
-```Swift
-public func keyDown(forAction action: String, withContext context: Any, withPayload payload: [AnyHashable : Any], forDevice deviceID: String) {
-    // Nothing to do
-}
-
-public func keyUp(forAction action: String, withContext context: Any, withPayload payload: [AnyHashable : Any], forDevice deviceID: String) {
-    // Nothing to do
-}
-
-public func willAppear(forAction action: String, withContext context: Any, withPayload payload: [AnyHashable : Any], forDevice deviceID: String) {
-    // Nothing to do
-}
-
-public func willDisappear(forAction action: String, withContext context: Any, withPayload payload: [AnyHashable : Any], forDevice deviceID: String) {
-    // Nothing to do
-}
-public func deviceDidConnect(_ deviceID: String, withDeviceInfo deviceInfo: [AnyHashable : Any]) {
-    // Nothing to do
-}
-
-public func deviceDidDisconnect(_ deviceID: String) {
-    // Nothing to do
-}
-
-public func applicationDidLaunch(_ applicationInfo: [AnyHashable : Any]) {
-    // Nothing to do
-}
-
-public func applicationDidTerminate(_ applicationInfo: [AnyHashable : Any]) {
-    // Nothing to do
-}
-```
-
-If you need to handle other events you have to define them yourself in `Common/ESDEventsProtocol.h` and dispatch them in `Common/ESDConnectionManager.m`.
-
-# Send commands to Stream Deck
-
-If you want to send something to the Stream Deck, you can use the methods defined on the `connectionManager`. The `connectionManager` implements the following methods. You can call them from inside the event handlers.
-
-```swift
-connectionManager?.setTitle("New title", withContext: context, withTarget: ESDSDKTarget.HardwareAndSoftware.rawValue)
-
-connectionManager?.setImage(someBase64ImageString, withContext: context, withTarget: ESDSDKTarget.HardwareOnly.rawValue)
-
-connectionManager?.showAlert(forContext: context)
-
-connectionManager?.showOK(forContext: context)
-
-connectionManager?.setSettings(["key1": "value1", "key2": "value2"], forContext: context)
-
-connectionManager?.setState(1, forContext: context)
-
-connectionManager?.logMessage("Some log message")
-
-```
-
-If you want to call some other stream deck method, you have to define it yourself in `Common/ESDConnectionManager.m` and implement it in `Common/ESDConnectionManager.m`.
-
-# More information
-
-More information about writing Stream Deck plugins in general can be found on the [Developer section](https://developer.elgato.com/documentation/stream-deck/sdk/overview/) at the web site of [Elgato](https://developer.elgato.com/documentation/stream-deck/sdk/overview/).

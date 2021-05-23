@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>com.magobaol.moom</title>
+    <link rel="stylesheet" href="sdpi.css">
+    <style>
+        #loading-container {
+            position:relative;
+        }
+        #loading-container.loading .mask {
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background: transparent;
+        }
+
+        #loading-container .spinner {
+            /*display: none;*/
+            display: inline-block;
+            vertical-align: middle;
+
+            background:none;
+            background-image: url(reload.svg);
+            background-repeat : no-repeat;
+            background-position: center center;
+            background-size: contain;
+            width: 10px;
+            height: 10px;
+        }
+
+        #loading-container .spinner svg path {
+            fill:#ffffff;
+        }
+
+        #loading-container.loading .spinner {
+
+            animation: spin 700ms linear infinite;
+        }
+
+        #askForRefreshProfileList {
+            width: 25px;
+            flex-grow: 0;
+            border:0;
+            background: transparent;
+        }
+
+        #moomProfile {
+            margin-right: 0px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loading-container.loading select {
+            color:#666;
+        }
+        #loading-container.loading button {
+            color:#666;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="sdpi-wrapper">
+
+        <div id="loading-container" class="loading">
+            <div type="select" class="sdpi-item">
+                <div class="sdpi-item-label">Profile</div>
+                <select class="sdpi-item-value select" id="moomProfile" style="width:100%;padding-right: 25px;"></select>
+                <button class="sdpi-item-value" id="askForRefreshProfileList" title="Refresh profiles list"><div class="spinner"></div></button>
+            </div>
+
+            <div class="mask"></div>
+        </div>
+     </div>
+
+     <script>
+        var websocket = null,
+        uuid = null,
+        actionInfo = {};
+
+        function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, inActionInfo) {
+            uuid = inUUID;
+
+            actionInfo = JSON.parse(inActionInfo);
+            websocket = new WebSocket('ws://localhost:' + inPort);
+
+            websocket.onopen = function () {
+                var json = {
+                    event:  inRegisterEvent,
+                    uuid:   inUUID
+                };
+                websocket.send(JSON.stringify(json));
+            }
+
+            websocket.onmessage = function( evt ) {
+                var jsonObj = JSON.parse(evt.data);
+
+                var event = jsonObj['event'];
+
+                if (event === 'sendToPropertyInspector') {
+                    if ( jsonObj.payload.hasOwnProperty( 'moomProfiles' ) ) {
+                        makeSelectProfileList( jsonObj.payload.moomProfiles );
+                    }                    
+                }
+            }
+            initValues();
+        }
+
+
+        function initValues( ) {
+
+            var settings = actionInfo.payload.settings ;
+
+            if ( settings.hasOwnProperty('profile') ) {
+                var select = document.getElementById('moomProfile');
+                var option = document.createElement('option');
+                option.value = settings.profile ;
+                option.innerHTML = settings.profile ;
+                select.appendChild(option);
+                select.value = settings.profile ;
+            }
+        }
+
+        function makeSelectProfileList( profiles ) {
+            console.log( profiles ) ;
+
+            profiles.sort(function(a,b){
+                    if( a.name < b.name ) {
+                        return -1 ;
+                    }else{
+                        return 1 ;
+                    }
+                });
+
+            var select = document.getElementById('moomProfile');
+
+            var currentlySelected = select.value;
+
+            select.innerHTML = "" ;
+
+            // Empty label first
+            var emptyProfile = document.createElement('option');
+            emptyProfile.value = "" ;
+            emptyProfile.innerHTML = "Select a Moom profile";
+            select.appendChild(emptyProfile);
+
+            var separator = document.createElement('optgroup');
+            separator.label = '';
+            select.appendChild(separator);
+
+            profiles.forEach(p => {                
+                var profile = document.createElement('option');
+                profile.value = p;
+                profile.innerHTML = p;
+                select.appendChild(profile);                
+            }); 
+            
+            // Current selection
+            if ( currentlySelected != '' ) {
+                select.value = currentlySelected ;
+            }else{
+                var settings = actionInfo.payload.settings ;
+                if ( settings.hasOwnProperty('profile') ) {
+                    select.value = settings.profile;
+                }
+            }
+
+            document.getElementById('loading-container').classList.remove("loading");
+        }
+
+        function askForRefreshProfileList( ) {            
+            var json = {
+                'action' : actionInfo.action ,
+                'event' : 'sendToPlugin',
+                'context' : uuid ,
+                'payload' : {
+                    'msg' : 'refreshprofilelist'
+                }
+            };
+            websocket.send(JSON.stringify(json));
+        }
+
+
+        // button
+        document.getElementById('askForRefreshProfileList').addEventListener('click', function() {
+            document.getElementById('loading-container').className = 'loading' ;            
+            askForRefreshProfileList();
+        });
+
+        function saveActionSettings( ) {
+            
+            var select = document.getElementById('moomProfile');
+            var v = '' ;
+            
+            if(select.selectedIndex >= 0 ) {
+                v = select.value ;                
+            }
+
+            var json = {
+                'event' : 'setSettings',
+                'context' : uuid ,
+                'payload' : {
+                    'profile' : v
+                }
+            };
+            websocket.send(JSON.stringify(json));
+        }
+
+        document.getElementById('moomProfile').addEventListener('change', saveActionSettings ) ;        
+
+     </script>
+</body>
+</html>

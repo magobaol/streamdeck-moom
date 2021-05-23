@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1302184926597B0B00037FA4 /* AppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302184826597B0B00037FA4 /* AppleScript.swift */; };
 		2B1E32AB235BC1F80082122F /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E32AA235BC1F80082122F /* Plugin.swift */; };
 		2B1E32AF235BCE8C0082122F /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E32AE235BCE8C0082122F /* utils.swift */; };
 		FA29E473215E7D2300C9F60C /* ESDConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA29E46E215E7D2300C9F60C /* ESDConnectionManager.m */; };
@@ -48,6 +49,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		130218282659731D00037FA4 /* ActionIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ActionIcon@2x.png"; sourceTree = "<group>"; };
+		130218292659731D00037FA4 /* PluginIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PluginIcon.png; sourceTree = "<group>"; };
+		1302182A2659731D00037FA4 /* PluginIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PluginIcon@2x.png"; sourceTree = "<group>"; };
+		1302182B2659731D00037FA4 /* ActionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionIcon.png; sourceTree = "<group>"; };
+		1302182C2659731D00037FA4 /* manifest.debug.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.debug.json; sourceTree = "<group>"; };
+		1302182D2659731D00037FA4 /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		1302184826597B0B00037FA4 /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
 		2B1E32A5235BB54C0082122F /* Plugin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Plugin-Bridging-Header.h"; sourceTree = "<group>"; };
 		2B1E32AA235BC1F80082122F /* Plugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		2B1E32AE235BCE8C0082122F /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
@@ -118,9 +126,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		130218262659731D00037FA4 /* com.magobaol.moom.sdPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				130218272659731D00037FA4 /* images */,
+				1302182C2659731D00037FA4 /* manifest.debug.json */,
+				1302182D2659731D00037FA4 /* manifest.json */,
+			);
+			path = com.magobaol.moom.sdPlugin;
+			sourceTree = "<group>";
+		};
+		130218272659731D00037FA4 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				130218282659731D00037FA4 /* ActionIcon@2x.png */,
+				130218292659731D00037FA4 /* PluginIcon.png */,
+				1302182A2659731D00037FA4 /* PluginIcon@2x.png */,
+				1302182B2659731D00037FA4 /* ActionIcon.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		FA0F7B6E2105CBC30028CF34 = {
 			isa = PBXGroup;
 			children = (
+				1302184826597B0B00037FA4 /* AppleScript.swift */,
+				130218262659731D00037FA4 /* com.magobaol.moom.sdPlugin */,
 				2B1E32AA235BC1F80082122F /* Plugin.swift */,
 				FA29E46D215E7D2300C9F60C /* Common */,
 				FAC7C7E42122CE1D000262E7 /* SocketRocket */,
@@ -302,8 +333,8 @@
 		FA0F7B6F2105CBC30028CF34 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Jarno Le Conté";
+				LastUpgradeCheck = 1240;
+				ORGANIZATIONNAME = "Francesco Face";
 				TargetAttributes = {
 					FA0F7B762105CBC30028CF34 = {
 						CreatedOnToolsVersion = 10.0;
@@ -312,11 +343,12 @@
 				};
 			};
 			buildConfigurationList = FA0F7B722105CBC30028CF34 /* Build configuration list for PBXProject "StreamDeckPlugin" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = FA0F7B6E2105CBC30028CF34;
 			productRefGroup = FA0F7B782105CBC30028CF34 /* Products */;
@@ -337,6 +369,7 @@
 				FA29E473215E7D2300C9F60C /* ESDConnectionManager.m in Sources */,
 				FAC7C8252122CE1D000262E7 /* SRURLUtilities.m in Sources */,
 				FAC7C81B2122CE1D000262E7 /* SRRunLoopThread.m in Sources */,
+				1302184926597B0B00037FA4 /* AppleScript.swift in Sources */,
 				FAC7C8282122CE1D000262E7 /* SRSecurityPolicy.m in Sources */,
 				FAC7C8262122CE1D000262E7 /* NSRunLoop+SRWebSocket.m in Sources */,
 				2B1E32AB235BC1F80082122F /* Plugin.swift in Sources */,
@@ -390,6 +423,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -398,7 +432,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -455,6 +489,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -463,7 +498,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -481,6 +516,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_MODULE_NAME = Plugin;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "Common/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
@@ -498,10 +534,11 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.pluginname;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magobaol.moom;
 				PRODUCT_MODULE_NAME = Plugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Common/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -520,7 +557,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.pluginname;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magobaol.moom;
 				PRODUCT_MODULE_NAME = Plugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

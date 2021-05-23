@@ -225,6 +225,30 @@
 	}
 }
 
+-(void)sendToPropertyInspector:(NSDictionary *)inPayload forContext:(id)inContext
+{
+    if(inPayload != nil && inContext != nil)
+    {
+        NSDictionary *json = @{
+                       @kESDSDKCommonEvent: @kESDSDKEventSendToPropertyInspector,
+                       @kESDSDKCommonContext: inContext,
+                       @kESDSDKCommonPayload: inPayload
+                       };
+        
+        NSError *err = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:0 error:&err];
+        if (err == nil)
+        {
+            NSError *error = nil;
+            [self.socket sendData:jsonData error:&error];
+            if(error != nil)
+            {
+                NSLog(@"Failed to change the settings due to error %@", error);
+            }
+        }
+    }
+}
+
 -(void)setState:(NSNumber *)inState forContext:(id)inContext
 {
 	if(inState != nil && inContext != nil)
@@ -328,6 +352,20 @@
 				[self.delegate willDisappearForAction:action withContext:context withPayload:payload forDevice:deviceID];
 	 		}
 	 	}
+        else if([event isEqualToString:@kESDSDKEventPropertyInspectorDidAppear])
+        {
+           if([self.delegate respondsToSelector:@selector(propertyInspectorDidAppearForAction:withContext:withPayload:forDevice:)])
+            {
+               [self.delegate propertyInspectorDidAppearForAction:action withContext:context withPayload:payload forDevice:deviceID];
+            }
+        }
+        else if([event isEqualToString:@kESDSDKEventSendToPlugin])
+        {
+           if([self.delegate respondsToSelector:@selector(sendToPluginForAction:withContext:withPayload:forDevice:)])
+            {
+               [self.delegate sendToPluginForAction:action withContext:context withPayload:payload forDevice:deviceID];
+            }
+        }
 	 	else if([event isEqualToString:@kESDSDKEventDeviceDidConnect])
 	 	{
 			if([self.delegate respondsToSelector:@selector(deviceDidConnect:withDeviceInfo:)])
